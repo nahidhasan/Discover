@@ -52,7 +52,7 @@ public class RestaurantDetails implements Parcelable {
         }
 
         @Override
-        public RestaurantDetails[] newArray(int size ) {
+        public RestaurantDetails[] newArray(int size) {
             return new RestaurantDetails[size];
         }
     };

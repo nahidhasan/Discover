@@ -97,7 +97,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
 
     private void setRestaurantDetailViewProperties(RestaurantDetails restaurant) {
         if(restaurant != null) {
-            RequestOptions requestOptions = new RequestOptions().placeholder(R.drawable.ic_launcher_background);
+            RequestOptions requestOptions = new RequestOptions().placeholder(R.drawable.ic_baseline_image_24);
             Glide.with(this)
                     .setDefaultRequestOptions(requestOptions)
                     .load(restaurant.getCover_img_url())

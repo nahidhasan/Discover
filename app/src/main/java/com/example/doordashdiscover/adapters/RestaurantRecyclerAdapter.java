@@ -67,14 +67,21 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
         int itemViewType = getItemViewType(position);
         if(itemViewType == RESTAURANT_TYPE) {
             RestaurantViewHolder vh = (RestaurantViewHolder) holder;
-            vh.name.setText(mRestaurants.get(position).getName());
-            vh.description.setText(mRestaurants.get(position).getDescription());
+
+            vh.name.setText(TextUtils.isEmpty(mRestaurants.get(position).getName())
+                    ? getContext().getResources().getString(R.string.restaurant_name)
+                    : mRestaurants.get(position).getName());
+            vh.description.setText(TextUtils.isEmpty(mRestaurants.get(position).getDescription())
+                    ? getContext().getResources().getString(R.string.restaurant_description)
+                    : mRestaurants.get(position).getDescription());
             vh.status.setText(TextUtils.isEmpty(mRestaurants.get(position).getDisplayStatus())
                     ? getContext().getResources().getString(R.string.restaurant_closed_message)
                     : getContext().getResources().getString(R.string.status_string, mRestaurants.get(position).getDisplayStatus()));
-            vh.deliveryFee.setText(String.valueOf(mRestaurants.get(position).getDisplay_delivery_fee()));
+            vh.description.setText(TextUtils.isEmpty(mRestaurants.get(position).getDisplay_delivery_fee())
+                    ? getContext().getResources().getString(R.string.restaurant_delivery_fee)
+                    : mRestaurants.get(position).getDisplay_delivery_fee());
 
-            RequestOptions requestOptions = new RequestOptions().placeholder(R.drawable.ic_launcher_background);
+            RequestOptions requestOptions = new RequestOptions().placeholder(R.drawable.ic_baseline_image_24);
             Glide.with(vh.itemView.getContext())
                     .setDefaultRequestOptions(requestOptions)
                     .load(mRestaurants.get(position).getCover_img_url())

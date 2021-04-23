@@ -1,7 +1,6 @@
 package com.example.doordashdiscover;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,8 +25,6 @@ public class RestaurantListActivity extends AppCompatActivity implements OnResta
     private RecyclerView mRecyclerView;
     private TextView mRetryView;
     private RestaurantRecyclerAdapter mRestaurantRecyclerAdapter;
-    SharedPreferences preferences;
-    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +33,6 @@ public class RestaurantListActivity extends AppCompatActivity implements OnResta
         mRecyclerView = findViewById(R.id.restaurant_List);
         mRetryView = findViewById(R.id.retry);
         mRetryView.setOnClickListener(v -> getRestaurantsApi());
-
-        preferences = getApplicationContext().getSharedPreferences("FAVORITE", MODE_PRIVATE);
-        editor = preferences.edit();
 
         mRestaurantListViewModel = new ViewModelProvider(this).get(RestaurantListViewModel.class);
         initRecyclerView();

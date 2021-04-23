@@ -1,8 +1,6 @@
 package com.example.doordashdiscover.adapters;
 
-import android.content.SharedPreferences;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;

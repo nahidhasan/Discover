@@ -1,12 +1,12 @@
 package com.example.doordashdiscover.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,17 +31,17 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
     private final OnRestaurantClickListener mOnRestaurantClickListener;
 
     private final Context mContext;
-    private SharedPreferences preferences;
-    private SharedPreferences.Editor editor;
+    private final SharedPreferences.Editor editor;
 
-    private Set<String> favorites;
+    private final Set<String> favorites;
 
+    @SuppressLint("CommitPrefEdits")
     public RestaurantRecyclerAdapter(OnRestaurantClickListener mOnRestaurantClickListener, Context context) {
         this.mOnRestaurantClickListener = mOnRestaurantClickListener;
         this.mContext = context;
-        preferences = context.getSharedPreferences("FAVORITE", Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences("FAVORITE", Context.MODE_PRIVATE);
         editor = preferences.edit();
-        favorites = new HashSet<String>(preferences.getStringSet("FAVORITE", new HashSet<>()));
+        favorites = new HashSet<>(preferences.getStringSet("FAVORITE", new HashSet<>()));
     }
 
     public Context getContext() {
@@ -100,25 +100,17 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
                     .into(vh.image);
 
             if(favorites != null) {
-                if (favorites.contains(mRestaurants.get(position).getId())) {
-                    vh.favorite.setChecked(true);
-                } else {
-                    vh.favorite.setChecked(false);
-                }
+                vh.favorite.setChecked(favorites.contains(mRestaurants.get(position).getId()));
             }
 
-            vh.favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    //Set<String> set = preferences.getStringSet("FAVORITE", new HashSet<>());
-                    if(isChecked) {
-                        favorites.add(mRestaurants.get(position).getId());
-                    } else {
-                        favorites.remove(mRestaurants.get(position).getId());
-                    }
-                    editor.putStringSet("FAVORITE", favorites);
-                    editor.apply();
+            vh.favorite.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if(isChecked) {
+                    favorites.add(mRestaurants.get(position).getId());
+                } else {
+                    favorites.remove(mRestaurants.get(position).getId());
                 }
+                editor.putStringSet("FAVORITE", favorites);
+                editor.apply();
             });
 
         }

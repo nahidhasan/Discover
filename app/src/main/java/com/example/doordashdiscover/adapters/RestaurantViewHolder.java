@@ -1,9 +1,12 @@
 package com.example.doordashdiscover.adapters;
 
+import android.content.SharedPreferences;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +16,7 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
 
     TextView name, description, deliveryFee, status;
     AppCompatImageView image;
+    AppCompatCheckBox favorite;
     OnRestaurantClickListener onRestaurantClickListener;
 
     public RestaurantViewHolder(@NonNull View itemView, OnRestaurantClickListener onRestaurantClickListener) {
@@ -22,6 +26,8 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder implements Vie
         description = itemView.findViewById(R.id.restaurant_item_description);
         deliveryFee = itemView.findViewById(R.id.restaurant_item_delivery_fee);
         status = itemView.findViewById(R.id.restaurant_item_status);
+        favorite = itemView.findViewById(R.id.favorite);
+
 
         this.onRestaurantClickListener = onRestaurantClickListener;
         itemView.setOnClickListener(this);
